@@ -2,6 +2,8 @@
   "name": "another-test",
   "private": true,
   "dependencies": {
-    "modernizr": "~2.8.1"
+    "modernizr": "~2.8.1",
+    "pure": "purecss#^0.6.0",
+    "lodash": "^4.17.2"
   }
 }

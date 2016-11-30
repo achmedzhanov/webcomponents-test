@@ -2,14 +2,14 @@
 class XTiles extends HTMLElement {
 
   // TODO
-  // [-] detect attribute changes
+  // [+] detect attribute changes
   // [+] layout
   // [+] css uppercase
   // [+] center letters in tiles
   // [+] square tiles
   // [-] dynamic div size ans aspect ratio
   // [-] reuse dom elements
-  // [-] realtime attr changes
+  // [+] realtime attr changes
 
   static get observedAttributes() {
     return ['layout', 'order', 'text'];
