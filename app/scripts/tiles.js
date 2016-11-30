@@ -38,13 +38,26 @@ class XTiles extends HTMLElement {
         flex-wrap: wrap;
       }      
       
-      .container.inline.direct {
-        
+      .container.reversed div{
+          order: 0 ! important;
+      }
+      
+      .container.direct div {
+          order: 0 ! important;
+      }
+      
+      .container.inline.reversed {
+        flex-direction: row-reverse;
       }       
       
       .container.column {
         flex-direction: column;
       }
+      
+      .container.column.reversed {
+        flex-direction: column-reverse;
+      }       
+      
       </style>
     `;
 
@@ -99,6 +112,7 @@ class XTiles extends HTMLElement {
       .map((c, i) => {
         let el = document.createElement("div");
         el.innerText = c;
+        el.style.order = '' + ((Math.random() * text.length) | 0);
         el.style.backgroundColor = rainbow(text.length, i);
         return el;
       });
