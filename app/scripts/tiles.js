@@ -3,7 +3,7 @@ class XTiles extends HTMLElement {
 
   // TODO
   // [-] detect attribute changes
-  // [-] layout
+  // [+] layout
   // [+] css uppercase
   // [+] center letters in tiles
   // [+] square tiles
@@ -11,10 +11,14 @@ class XTiles extends HTMLElement {
   // [-] reuse dom elements
   // [-] realtime attr changes
 
-
+  static get observedAttributes() {
+    return ['layout', 'order', 'text'];
+  }
 
   constructor() {
     super();
+
+    console.debug('constructor');
 
     let template = `
     <style>
@@ -56,6 +60,7 @@ class XTiles extends HTMLElement {
       
       .container.column.reversed {
         flex-direction: column-reverse;
+        justify-content: flex-end;
       }       
       
       </style>
@@ -68,14 +73,31 @@ class XTiles extends HTMLElement {
     let container = document.createElement('div');
     this.container = container;
 
+    shadow.appendChild(container);
+
+    this.updateLayout();
+
+    let text = this.getAttribute('text') || '';
+    this.updateText(text);
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if(name === 'text') {
+      this.updateText(newValue);
+    } else if(name === 'layout' || name === 'order') {
+      this.updateLayout();
+    }
+  }
+
+  updateLayout() {
     let layout = this.getAttribute('layout');
     let order = this.getAttribute('order');
 
     const LAYOUT_COLUMN = 'column';
     const LAYOUT_INLINE = 'inline';
 
-    let layoutClass =  null;
-    switch(layout) {
+    let layoutClass = null;
+    switch (layout) {
       case LAYOUT_COLUMN:
         layoutClass = LAYOUT_COLUMN;
         break;
@@ -89,8 +111,8 @@ class XTiles extends HTMLElement {
     const ORDER_REVERSED = 'reversed';
     const ORDER_RANDOMIZED = 'randomized';
 
-    let orderClass =  null;
-    switch(order) {
+    let orderClass = null;
+    switch (order) {
       case ORDER_REVERSED:
         orderClass = ORDER_REVERSED;
         break;
@@ -103,11 +125,11 @@ class XTiles extends HTMLElement {
         break;
     }
 
-    container.className = 'container ' + layoutClass + ' ' + orderClass;
-    shadow.appendChild(container);
+    this.container.className = 'container ' + layoutClass + ' ' + orderClass;
+  }
 
 
-    let text = this.getAttribute('text') || '';
+  updateText(text) {
     let elements = _.filter([...(text)], (c) => c !== ' ')
       .map((c, i) => {
         let el = document.createElement("div");
@@ -118,8 +140,34 @@ class XTiles extends HTMLElement {
       });
 
     this.container.innerHTML = '';
-    _.each(elements, (el) => {this.container.appendChild(el)})
+    _.each(elements, (el) => {
+      this.container.appendChild(el)
+    });
   }
+
+
+  set layout(value) {
+    this.setAttribute('layout', value);
+  }
+  get layout() {
+    this.getAttribute('layout');
+  }
+
+  set order(value) {
+    this.setAttribute('order', value);
+  }
+  get order() {
+    this.getAttribute('order');
+  }
+
+  set text(value) {
+    this.setAttribute('text', value);
+  }
+  get text() {
+    this.getAttribute('text');
+  }
+
+
 }
 
 // Define the new element

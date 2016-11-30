@@ -16,6 +16,7 @@
 
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="/bower_components/pure/src/forms/css/forms.css">
     <!-- endbuild -->
 
     <!-- build:js scripts/vendor/modernizr.js -->
@@ -31,7 +32,21 @@
     <div class="hero-unit">
       <h1>Tiles web component</h1>
       <p>Settings ...</p>
-      <x-tiles text="abcdefgh 123456789" layout="column" ></x-tiles>
+      <form class="pure-form pure-form-stacked" >
+        <fieldset class="pure-group">
+          <select class="pure-input-1-4" name="layout" >
+            <option value="inline" >inline</option>
+            <option value="column" >column</option>
+          </select>
+          <select class="pure-input-1-4" name="order" >
+            <option value="direct" >direct</option>
+            <option value="reversed" >reversed</option>
+            <option value="randomized" >randomized</option>
+          </select>
+          <textarea class="pure-input-1-4" name="text" >abcdefgh 123456789</textarea>
+        </fieldset>
+      </form>
+      <x-tiles text="abcdefgh 123456789" layout="inline" order="direct" name="tiles" ></x-tiles>
     </div>
 
     <!-- build:js scripts/vendor.js -->
