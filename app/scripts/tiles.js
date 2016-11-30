@@ -52,6 +52,8 @@ class XTiles extends HTMLElement {
       
       .container.inline.reversed {
         flex-direction: row-reverse;
+        flex-wrap: wrap-reverse;
+        justify-content: flex-end;
       }       
       
       .container.column {
