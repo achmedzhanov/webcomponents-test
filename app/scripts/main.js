@@ -18,7 +18,7 @@
       tiles.order = el.options[el.selectedIndex].value;
     }, false);
 
-    text.addEventListener('change', function(e) {
+    text.addEventListener('input', function(e) {
       tiles.text = e.target.value;
     }, false);
 
